@@ -26,19 +26,20 @@ public class queries {
     public void createPlayer(Player player) throws SQLException {
         UUID uuid = player.getUniqueId();
         if (!doesPlayerExist(player)){
-            PreparedStatement ps1 = plugin.DB.getConnection().prepareStatement("SELECT * FROM " + plugin.getConfig().getString("Plugin.Database.MySQL.tableName")  + " WHERE " + plugin.getConfig().getString("Plugin.Database.MySQL.UUIDColumn") + "=?" + "=?");
+            PreparedStatement ps1 = plugin.DB.getConnection().prepareStatement("SELECT * FROM " + plugin.getConfig().getString("Plugin.Database.MySQL.tableName")  + " WHERE " + plugin.getConfig().getString("Plugin.Database.MySQL.UUIDColumn") + "=?");
             ps1.setString(1, String.valueOf(uuid));
             ResultSet rs1 = ps1.executeQuery();
-            String playerName = "";
+            Player playerName = null;
             if (rs1.next()){
                 for (Player p : Bukkit.getOnlinePlayers()){
                     if(p.getUniqueId().equals(rs1.getString("uuid"))){
-                        playerName = p.toString();
+                        playerName = p;
                     }
                 }
             }
-            PreparedStatement createPlayer = plugin.DB.getConnection().prepareStatement("INSERT IGNORE INTO " + plugin.getConfig().getString("Plugin.Database.MySQL.tableName") +  "(username) VALUES (?)");
-            createPlayer.setString(1 , playerName);
+            PreparedStatement createPlayer = plugin.DB.getConnection().prepareStatement("UPDATE " + plugin.getConfig().getString("Plugin.Database.MySQL.tableName") + " SET username=? WHERE " + plugin.getConfig().getString("Plugin.Database.MySQL.UUIDColumn") + "=?");
+            createPlayer.setString(1 , playerName.getName());
+            createPlayer.setString(2, playerName.getUniqueId().toString());
             createPlayer.executeUpdate();
         }
     }

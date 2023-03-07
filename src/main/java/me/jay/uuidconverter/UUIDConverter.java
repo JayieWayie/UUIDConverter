@@ -60,7 +60,7 @@ public final class UUIDConverter extends JavaPlugin implements Listener {
         if (rs1.next()){
             return;
         }else{
-            PreparedStatement ps2 = DB.getConnection().prepareStatement("UPDATE " + getConfig().getString("Plugin.Database.MySQL.tableName") + " SET username=? WHERE " + getConfig().getString("Plugin.Database.MySQL.UUIDColumn") + "=?" + "=?");
+            PreparedStatement ps2 = DB.getConnection().prepareStatement("UPDATE " + getConfig().getString("Plugin.Database.MySQL.tableName") + " SET username=? WHERE " + getConfig().getString("Plugin.Database.MySQL.UUIDColumn")+ "=?");
             ps2.setString(1, e.getPlayer().getName());
             ps2.setString(2, e.getPlayer().getUniqueId().toString());
         }
