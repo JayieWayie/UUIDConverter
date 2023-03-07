@@ -1,0 +1,6 @@
+name: UUIDConverter
+version: '${project.version}'
+main: me.jay.uuidconverter.UUIDConverter
+api-version: 1.19
+authors: [ Jay ]
+description: Convert uuids to usernames in MySQL

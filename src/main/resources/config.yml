@@ -1,0 +1,21 @@
+#
+#
+#
+#
+#   UUIDConverter - Created to convert uuids to usernames in MYSQL
+#                     Coded By Jayie.
+#
+#
+#
+#
+
+Plugin:
+  Database:
+    MySQL:
+      Address: ''
+      Port: ''
+      Username: ''
+      Password: ''
+      DBName: ''
+      tableName: ''
+      UUIDColumn: 'uuid'
